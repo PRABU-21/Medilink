@@ -19,6 +19,7 @@ function App() {
     // Check authentication status on mount
     checkAuthStatus();
   }, []);
+  //this is a comment
 
   const checkAuthStatus = () => {
     const token = localStorage.getItem("token");
