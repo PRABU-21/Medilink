@@ -18,6 +18,7 @@ function App() {
 
   useEffect(() => {
     // Check authentication status on mount
+    // Comment 2: This effect runs once when the component mounts
     checkAuthStatus();
   }, []);
   //this is a comment
