@@ -1,4 +1,5 @@
 // File: src/App.jsx
+// Comment 1: Main application component managing authentication and routing
 import { useState, useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import LoginPage from "./components/auth/LoginPage";
