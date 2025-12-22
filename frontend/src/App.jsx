@@ -40,6 +40,7 @@ function App() {
   };
 
   const handleLogin = () => {
+    // Comment 3: Updates authentication state after successful login
     setIsAuthenticated(true);
   };
 
