@@ -1,9 +1,14 @@
+// Animation library for smooth transitions
 import { motion } from "framer-motion";
+// React Router for navigation links
 import { Link } from "react-router-dom";
+// Icon components from Lucide library
 import { Award, ThumbsUp, Plus, ArrowRight } from "lucide-react";
 
+// HealthTips Component - Displays health recommendations and tips for users
 const HealthTips = () => {
-  // Sample health tips data
+  // Array of health tips with metadata for display
+  // TODO: In production, this should come from backend API
   const healthTips = [
     {
       id: 1,
@@ -24,21 +29,23 @@ const HealthTips = () => {
   ];
 
   return (
+    // Main container with fade-in animation from bottom
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      initial={{ opacity: 0, y: 20 }} // Initial state: invisible and below
+      animate={{ opacity: 1, y: 0 }} // Final state: visible and in position
+      transition={{ duration: 0.3 }} // Animation timing
       className="card p-6 hover:shadow-lg transition-shadow bg-white rounded-lg"
     >
-      {/* Header Section */}
+      {/* Header Section with title and icon */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center">
+          {/* Animated award icon with pulse and rotation effect */}
           <motion.div
             animate={{
-              scale: [1, 1.1, 1],
-              rotate: [0, 10, 0],
+              scale: [1, 1.1, 1], // Pulsing animation
+              rotate: [0, 10, 0], // Gentle rotation
             }}
-            transition={{ duration: 3, repeat: Infinity }}
+            transition={{ duration: 3, repeat: Infinity }} // Infinite loop
             className="bg-amber-100 text-amber-600 p-2 rounded-lg"
           >
             <Award size={18} />
@@ -50,9 +57,10 @@ const HealthTips = () => {
           whileTap={{ scale: 0.95 }}
         ></motion.div>
       </div>
-      {/* Tips List */}
+      {/* Tips List - Maps through healthTips array and renders each tip */}
       <div className="space-y-4">
         {healthTips.map((tip) => (
+          // Individual tip card with hover effect
           <motion.div
             key={tip.id}
             whileHover={{ scale: 1.02 }}

@@ -1,9 +1,14 @@
+// Framer Motion for animations and interactions
 import { motion } from "framer-motion";
+// React Router Link for navigation
 import { Link } from "react-router-dom";
+// Icon set for different feature types
 import { ArrowRight, Utensils, TrendingUp, Video, Pill } from "lucide-react";
 
+// FeatureCard Component - Reusable card component for dashboard features
+// Props: title, description, icon name, color theme, link path, link text
 const FeatureCard = ({ title, description, icon, color, link, linkText }) => {
-  // Map icon string tosadf component
+  // Helper function to map icon string to actual icon component
   const getIcon = (iconName) => {
     switch (iconName) {
       case "Utensils":
@@ -19,7 +24,8 @@ const FeatureCard = ({ title, description, icon, color, link, linkText }) => {
     }
   };
 
-  // Map color string to tailwifdnd classes
+  // Helper function to generate color classes based on theme
+  // Returns object with background, text, hover, and circle color classes
   const getColorClasses = (colorName) => {
     switch (colorName) {
       case "teal":
