@@ -1,23 +1,26 @@
-// Dashboard component - Main landing page after user login
-// Displays health features, news, and personalized welcome message
+// React core and hooks for state and lifecycle management
 import { useState, useEffect } from "react";
+// Framer Motion for smooth animations and transitions
 import { motion } from "framer-motion";
+// React Router for navigation between pages
 import { Link } from "react-router-dom";
+// Lucide icons for visual elements
 import { Stethoscope } from "lucide-react";
 
-// Import dashboard sub-components
+// Import dashboard components for modular structure
 import WelcomeBanner from "./dashboard/WelcomeBanner";
 import NewsCarousel from "./dashboard/NewsCarousel";
 import FeatureCard from "./dashboard/FeatureCard";
 import HealthTips from "./dashboard/HealthTips";
 
+// Main Dashboard component - Central hub for user health management
 const Dashboard = () => {
-  // State to store the logged-in user's name
+  // State to store the current user's name
   const [userName, setUserName] = useState("");
 
-  // Effect to retrieve user information from localStorage on component mount
+  // Effect hook to load user data when component mounts
   useEffect(() => {
-    // Get user data from localStorage
+    // Retrieve and parse user data from localStorage
     const userString = localStorage.getItem("user");
     if (userString) {
       const user = JSON.parse(userString);
@@ -25,8 +28,8 @@ const Dashboard = () => {
     }
   }, []);
 
-  // Features data - Configuration for the dashboard feature cards
-  // Each feature represents a major functionality of the Medilink app
+  // Array of feature cards displaying different dashboard functionalities
+  // Each feature represents a key capability of the health platform
   const features = [
     {
       id: 1,
@@ -61,17 +64,15 @@ const Dashboard = () => {
     },
   ];
 
-  // Render the dashboard layout with all components
   return (
     <div className="space-y-6 pt-16">
-      {/* Welcome Banner - Displays personalized greeting */}
+      {/* Welcome Banner */}
       <WelcomeBanner username={userName} />
 
-      {/* News Carousel - Shows latest health news and updates */}
+      {/* News Carousel */}
       <NewsCarousel />
 
-      {/* Features Section - Grid of available features */}
-      {/* Responsive grid: 1 column on mobile, 2 columns on medium+ screens */}
+      {/* Features Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {features.map((feature) => (
           <FeatureCard
