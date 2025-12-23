@@ -1,6 +1,10 @@
+// React hooks for state and lifecycle management
 import { useState, useEffect } from "react";
+// React Router components for routing and navigation
 import { Outlet, useLocation, Link, useNavigate } from "react-router-dom";
+// Framer Motion for smooth animations
 import { motion } from "framer-motion";
+// Lucide icon library imports for UI elements
 import {
   Menu,
   X,
@@ -18,16 +22,25 @@ import { SiWorldhealthorganization } from "react-icons/si";
 import { IoFastFoodOutline } from "react-icons/io5";
 import GoogleTranslate from "./food-analyzer/GoogleTranslate";
 
+// Layout Component - Main application layout wrapper with sidebar and navigation
+// Handles responsive design and provides consistent structure across all pages
 const Layout = ({ onLogout }) => {
   const navigate = useNavigate();
+  // State to track sidebar open/closed status
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  // State to detect mobile vs desktop view
   const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
+  // State to control Google Translate widget visibility
   const [showTranslator, setShowTranslator] = useState(true);
 
+  // Effect to handle responsive sidebar behavior based on screen size
+  // Effect to handle responsive sidebar behavior based on screen size
   useEffect(() => {
     const checkScreenSize = () => {
+      // Update mobile flag based on viewport width
       setIsMobile(window.innerWidth < 768);
+      // Auto-close sidebar on mobile, auto-open on desktop
       if (window.innerWidth < 768) {
         setIsSidebarOpen(false);
       } else {
@@ -36,12 +49,15 @@ const Layout = ({ onLogout }) => {
     };
 
     checkScreenSize();
+    // Add event listener for window resize
     window.addEventListener("resize", checkScreenSize);
 
+    // Cleanup listener on component unmount
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
   // Effect to control translator visibility on route change
+  // Prevents multiple Google Translate widget instances
   useEffect(() => {
     // Hide translator and show it only after a short delay
     // This prevents multiple instances from being created
@@ -53,6 +69,7 @@ const Layout = ({ onLogout }) => {
     return () => clearTimeout(timer);
   }, [location.pathname]);
 
+  // Handler function for user logout
   const handleLogout = () => {
     onLogout();
   };
