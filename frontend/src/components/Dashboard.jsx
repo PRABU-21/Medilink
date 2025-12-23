@@ -1,17 +1,21 @@
+// Dashboard component - Main landing page after user login
+// Displays health features, news, and personalized welcome message
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Stethoscope } from "lucide-react";
 
-// Import components
+// Import dashboard sub-components
 import WelcomeBanner from "./dashboard/WelcomeBanner";
 import NewsCarousel from "./dashboard/NewsCarousel";
 import FeatureCard from "./dashboard/FeatureCard";
 import HealthTips from "./dashboard/HealthTips";
 
 const Dashboard = () => {
+  // State to store the logged-in user's name
   const [userName, setUserName] = useState("");
 
+  // Effect to retrieve user information from localStorage on component mount
   useEffect(() => {
     // Get user data from localStorage
     const userString = localStorage.getItem("user");
@@ -21,7 +25,8 @@ const Dashboard = () => {
     }
   }, []);
 
-  // Features data
+  // Features data - Configuration for the dashboard feature cards
+  // Each feature represents a major functionality of the Medilink app
   const features = [
     {
       id: 1,
@@ -56,15 +61,17 @@ const Dashboard = () => {
     },
   ];
 
+  // Render the dashboard layout with all components
   return (
     <div className="space-y-6 pt-16">
-      {/* Welcome Banner */}
+      {/* Welcome Banner - Displays personalized greeting */}
       <WelcomeBanner username={userName} />
 
-      {/* News Carousel */}
+      {/* News Carousel - Shows latest health news and updates */}
       <NewsCarousel />
 
-      {/* Features Section */}
+      {/* Features Section - Grid of available features */}
+      {/* Responsive grid: 1 column on mobile, 2 columns on medium+ screens */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {features.map((feature) => (
           <FeatureCard
