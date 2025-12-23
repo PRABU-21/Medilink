@@ -1,6 +1,10 @@
+// React hook for state management
 import { useState } from "react";
+// React Router for navigation and links
 import { Link, useNavigate } from "react-router-dom";
+// Framer Motion for page transitions and animations
 import { motion } from "framer-motion";
+// Icon library for form fields and UI elements
 import {
   Heart,
   User,
@@ -15,11 +19,16 @@ import {
   Hospital,
   UserCircle,
 } from "lucide-react";
+// HTTP client for API communication
 import axios from "axios";
 
+// SignupPage Component - Multi-step registration form for new users
+// Collects user information and creates new account
 const SignupPage = () => {
   const navigate = useNavigate();
+  // Current step in multi-step form (1 or 2)
   const [step, setStep] = useState(1);
+  // Form data state containing all user registration information
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -28,10 +37,14 @@ const SignupPage = () => {
     gender: "",
     address: "",
   });
+  // Loading state for form submission feedback
   const [isLoading, setIsLoading] = useState(false);
+  // Error state for validation and API errors
   const [error, setError] = useState("");
+  // Success state for registration completion message
   const [success, setSuccess] = useState("");
 
+  // Handler for input field changes - clears errors on input
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -40,16 +53,18 @@ const SignupPage = () => {
     setError("");
   };
 
+  // Handler to move to next step in registration form
+  // Validates current step before proceeding
   const handleNextStep = (e) => {
     e.preventDefault();
 
-    // Validate passwords match
+    // Validate that passwords match before proceeding
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match");
       return;
     }
 
-    // Basic validation
+    // Validate that all required fields are filled
     if (!formData.name || !formData.email || !formData.password) {
       setError("Please fill in all required fields");
       return;

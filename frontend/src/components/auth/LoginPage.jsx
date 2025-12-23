@@ -1,6 +1,10 @@
+// React hooks for state and lifecycle management
 import { useState, useEffect } from "react";
+// React Router for navigation and links
 import { Link, useNavigate } from "react-router-dom";
+// Framer Motion for smooth page animations
 import { motion } from "framer-motion";
+// Icon library for UI elements
 import {
   Heart,
   Mail,
@@ -9,17 +13,24 @@ import {
   Hospital,
   AlertCircle,
 } from "lucide-react";
+// HTTP client for API requests
 import axios from "axios";
 
+// LoginPage Component - Handles user authentication and login flow
+// Props: onLogin - callback function to update app authentication state
 const LoginPage = ({ onLogin }) => {
   const navigate = useNavigate();
+  // Form state to store email and password
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  // Loading state for submit button feedback
   const [isLoading, setIsLoading] = useState(false);
+  // Error state to display login errors to user
   const [error, setError] = useState("");
 
+  // Handler for input field changes
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -28,12 +39,14 @@ const LoginPage = ({ onLogin }) => {
     setError("");
   };
 
+  // Handler for form submission - authenticates user via backend API
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
 
     try {
+      // Send login request to backend API
       const response = await axios.post(
         "https://intel-medilink-backend.onrender.com/api/auth/login",
         formData
@@ -42,16 +55,16 @@ const LoginPage = ({ onLogin }) => {
       const { success, token, user } = response.data;
 
       if (success) {
-        // Store auth data
-        const expirationTime = new Date().getTime() + 60 * 60 * 1000; // 1 hour
+        // Store authentication data in localStorage for session persistence
+        const expirationTime = new Date().getTime() + 60 * 60 * 1000; // Token expires in 1 hour
         localStorage.setItem("token", token);
         localStorage.setItem("tokenExpiration", expirationTime);
         localStorage.setItem("user", JSON.stringify(user));
 
-        // Update auth state
+        // Update parent component's authentication state
         onLogin();
 
-        // Navigate to dashboard immediately
+        // Redirect to dashboard after successful login
         navigate("/dashboard", { replace: true });
       } else {
         setError("Login failed. Please try again.");
